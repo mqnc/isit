@@ -15,7 +15,7 @@
             document.getElementById("md5Hash").textContent = "";
             }
             else{
-            let cleanedText = inputText.replace(/[^a-zA-Z]/g, '').toLowerCase();
+            let cleanedText = inputText.normalize("NFD").replace(/[^a-zA-Z]/g, '').toLowerCase();
             document.getElementById("cleaned").textContent = cleanedText;
             document.getElementById("md5Hash").textContent = CryptoJS.MD5(cleanedText).toString();
             }
