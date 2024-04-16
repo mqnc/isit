@@ -22,10 +22,13 @@
 			}
 			else {
 				let cleanedText = inputText
-				.replaceAll(/ß/g, "s")
-				.replaceAll(/ph/g, "f")
-				.replaceAll(/h/g, "")
-				.replaceAll(/z/g, "s")
+				.replaceAll("ß", "s")
+				.replaceAll("ph", "f")
+				.replaceAll("h", "")
+				.replaceAll("z", "s")
+				.replaceAll("ä", "ae")
+				.replaceAll("ö", "oe")
+				.replaceAll("ü", "ue")
 				.normalize("NFD")
 				.replaceAll(/([a-zA-Z])\1+/g, '$1')
 				.replaceAll(/[^a-zA-Z]/g, '')
