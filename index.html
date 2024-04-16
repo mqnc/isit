@@ -22,11 +22,11 @@
 			}
 			else {
 				let cleanedText = inputText
-				.replace("ß", "s")
-				.replace("ph", "f")
+				.replace(/ß/g, "s")
+				.replace(/ph/g, "f")
 				.replace(/([a-zA-Z])\1+/g, '$1')
-				.replace("h", "")
-				.replace("z", "s")
+				.replace(/h/g, "")
+				.replace(/z/g, "s")
 				.normalize("NFD")
 				.replace(/[^a-zA-Z]/g, '')
 				.toLowerCase();
