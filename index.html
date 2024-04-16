@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    body{background-color:#000000; color:#ffffff; font-size:large; font-family:sans-serif;}
-    </style>
-    <title>MD5 Hash Calculator that even Dave, I-Chen and Sandhya can operate</title>
-    <script>
-        function calculateMD5() {
-            let inputText = document.getElementById("inputField").value;
-            if(inputText == ""){
-            document.getElementById("cleaned").textContent = "";
-            document.getElementById("md5Hash").textContent = "";
-            }
-            else{
-            let cleanedText = inputText.normalize("NFD").replace(/[^a-zA-Z]/g, '').toLowerCase();
-            document.getElementById("cleaned").textContent = cleanedText;
-            document.getElementById("md5Hash").textContent = CryptoJS.MD5(cleanedText).toString();
-            }
-        }
-    </script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			background-color: #000000;
+			color: #ffffff;
+			font-size: large;
+			font-family: sans-serif;
+		}
+	</style>
+	<title>MD5 Hash Calculator that even Dave, I-Chen and Sandhya can operate, extra dummy edition</title>
+	<script>
+		function calculateMD5() {
+			let inputText = document.getElementById("inputField").value;
+			if (inputText == "") {
+				document.getElementById("cleaned").textContent = "";
+				document.getElementById("md5Hash").textContent = "";
+			}
+			else {
+				let cleanedText = inputText
+				.replace("ß", "s")
+				.replace("ph", "f")
+				.replace(/([a-zA-Z])\1+/g, '$1')
+				.replace("h", "")
+				.replace("z", "s")
+				.normalize("NFD")
+				.replace(/[^a-zA-Z]/g, '')
+				.toLowerCase();
+				document.getElementById("cleaned").textContent = cleanedText;
+				document.getElementById("md5Hash").textContent = CryptoJS.MD5(cleanedText).toString();
+			}
+		}
+	</script>
 </head>
+
 <body>
-    <div style="text-align: center;">
-        <br><br>
-        <input id="inputField" rows="5" cols="50" oninput="calculateMD5()"></input><br>
-        <br>
-        <div id="cleaned"></div><br>
-        <div id="md5Hash"></div>
-    </div>
-    <!-- Include CryptoJS library for MD5 calculation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	<div style="text-align: center;">
+		<br><br>
+		<input id="inputField" rows="5" cols="50" oninput="calculateMD5()"></input><br>
+		<br>
+		<div id="cleaned"></div><br>
+		<div id="md5Hash"></div>
+	</div>
+	<!-- Include CryptoJS library for MD5 calculation -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </body>
+
 </html>
