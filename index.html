@@ -22,13 +22,13 @@
 			}
 			else {
 				let cleanedText = inputText
-				.replace(/ß/g, "s")
-				.replace(/ph/g, "f")
-				.replace(/([a-zA-Z])\1+/g, '$1')
-				.replace(/h/g, "")
-				.replace(/z/g, "s")
+				.replaceAll(/ß/g, "s")
+				.replaceAll(/ph/g, "f")
+				.replaceAll(/h/g, "")
+				.replaceAll(/z/g, "s")
 				.normalize("NFD")
-				.replace(/[^a-zA-Z]/g, '')
+				.replaceAll(/([a-zA-Z])\1+/g, '$1')
+				.replaceAll(/[^a-zA-Z]/g, '')
 				.toLowerCase();
 				document.getElementById("cleaned").textContent = cleanedText;
 				document.getElementById("md5Hash").textContent = CryptoJS.MD5(cleanedText).toString();
