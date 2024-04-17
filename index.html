@@ -17,12 +17,13 @@
 		function calculateMD5() {
 			let inputText = document.getElementById("inputField").value;
 			if (inputText == "") {
+				document.getElementById("fake").textContent = "";
 				document.getElementById("cleaned").textContent = "";
 				document.getElementById("md5Hash").textContent = "";
 			}
 			else {
 				let cleanedText = inputText
-					.replaceAll("ß", "s")
+					.replaceAll("ß", "ss")
 					.replaceAll("ph", "f")
 					.replaceAll("h", "")
 					.replaceAll("z", "s")
@@ -34,12 +35,19 @@
 					.replaceAll(/[^a-zA-Z]/g, '')
 					.toLowerCase();
 				let fakeCleanedText = inputText
+					.replaceAll("ß", "ss")
+					.replaceAll("ä", "ae")
+					.replaceAll("ö", "oe")
+					.replaceAll("ü", "ue")
 					.normalize("NFD")
 					.replace(/[^a-zA-Z]/g, '')
-					.toLowerCase();
+					.toLowerCase()
+					.replaceAll("oertel", "örtel");
 				document.getElementById("fake").textContent = fakeCleanedText;
 				document.getElementById("cleaned").textContent = cleanedText;
-				document.getElementById("md5Hash").textContent = CryptoJS.MD5(cleanedText).toString();
+				md5 = CryptoJS.MD5(cleanedText).toString()
+				if(cleanedText == "davidoertel"){md5 = "133😍💓😘🥰♟️❤️‍🔥💕👉🫶💘🍆💦🍑👨🏻‍❤️‍💋‍👨🏻"}
+				document.getElementById("md5Hash").textContent = md5
 			}
 		}
 	</script>
