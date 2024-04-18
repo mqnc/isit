@@ -12,7 +12,7 @@
 			font-family: sans-serif;
 		}
 	</style>
-	<title>MD5 Hash Calculator that even Dave, I-Chen and Sandhya can operate, extra dummy edition</title>
+	<title>MD5 Hash Calculator that even Dave, I-Chen and Sandhya can operate</title>
 	<script>
 		function calculateMD5() {
 			let inputText = document.getElementById("inputField").value;
@@ -23,9 +23,11 @@
 			}
 			else {
 				let cleanedText = inputText
+					.toLowerCase()
 					.replaceAll("ß", "ss")
 					.replaceAll("ph", "f")
 					.replaceAll("h", "")
+					.replaceAll("ie", "y")
 					.replaceAll("z", "s")
 					.replaceAll("ä", "ae")
 					.replaceAll("ö", "oe")
@@ -33,16 +35,15 @@
 					.normalize("NFD")
 					.replaceAll(/([a-zA-Z])\1+/g, '$1')
 					.replaceAll(/[^a-zA-Z]/g, '')
-					.toLowerCase();
 				let fakeCleanedText = inputText
+					.toLowerCase()
 					.replaceAll("ß", "ss")
 					.replaceAll("ä", "ae")
 					.replaceAll("ö", "oe")
 					.replaceAll("ü", "ue")
 					.normalize("NFD")
 					.replace(/[^a-zA-Z]/g, '')
-					.toLowerCase()
-					.replaceAll("oertel", "örtel");
+					.replaceAll("oertel", "örtel")
 				document.getElementById("fake").textContent = fakeCleanedText;
 				document.getElementById("cleaned").textContent = cleanedText;
 				md5 = CryptoJS.MD5(cleanedText).toString()
@@ -61,6 +62,9 @@
 		<div id="fake"></div><br>
 		<div id="md5Hash"></div><br><br><br><br><br><br><br>
 		<div id="cleaned" style="color:black"></div>
+		<div id="cleaned" style="position: absolute; bottom: 3%; left: 50%; transform: translateX(-50%); text-align: center; color:gray; font-size: small;">
+			updated 18.04.2024 16:20
+		</div>
 	</div>
 	<!-- Include CryptoJS library for MD5 calculation -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
