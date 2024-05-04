@@ -16,25 +16,32 @@
 	<script>
 		function calculateMD5() {
 			let inputText = document.getElementById("inputField").value;
+			document.getElementById("copies").innerHTML = ""
 			if (inputText == "") {
 				document.getElementById("fake").textContent = "";
 				document.getElementById("cleaned").textContent = "";
 				document.getElementById("md5Hash").textContent = "";
 			}
 			else {
+				let lastIteration = ""
 				let cleanedText = inputText
-					.toLowerCase()
-					.replaceAll("ß", "ss")
-					.replaceAll("ph", "f")
-					.replaceAll("h", "")
-					.replaceAll("ie", "y")
-					.replaceAll("z", "s")
-					.replaceAll("ä", "ae")
-					.replaceAll("ö", "oe")
-					.replaceAll("ü", "ue")
-					.normalize("NFD")
-					.replaceAll(/([a-zA-Z])\1+/g, '$1')
-					.replaceAll(/[^a-zA-Z]/g, '')
+				while (lastIteration != cleanedText){
+					lastIteration = cleanedText
+					cleanedText = lastIteration
+						.toLowerCase()
+						.replaceAll("ß", "ss")
+						.normalize("NFD")
+						.replaceAll("ph", "f")
+						.replaceAll("h", "")
+						.replaceAll("ie", "y")
+						.replaceAll("z", "s")
+						.replaceAll("k", "c")
+						.replaceAll(/[^a-z]/g, '')
+						.replaceAll(/([a-z])\1+/g, '$1')
+						.replaceAll(/ae+/g, "a")
+						.replaceAll(/oe+/g, "o")
+						.replaceAll(/ue+/g, "u")
+				}
 				let fakeCleanedText = inputText
 					.toLowerCase()
 					.replaceAll("ß", "ss")
@@ -46,17 +53,22 @@
 					.replaceAll("oertel", "örtel")
 				document.getElementById("fake").textContent = fakeCleanedText;
 				document.getElementById("cleaned").textContent = cleanedText;
-				md5 = CryptoJS.MD5(cleanedText).toString()
-				if(cleanedText == "davidoertel"){md5 = "133😍💓😘🥰♟️❤️‍🔥💕👉🫶💘🍆💦🍑👨🏻‍❤️‍💋‍👨🏻"}
-				if(fakeCleanedText == "frkyjenn"){
+				md5 = CryptoJS.MD5(cleanedText).toString().slice(0, 16)
+				if (cleanedText == "davidoertel") { md5 = "133😍💓😘🥰♟️❤️‍🔥💕👉🫶💘🍆💦🍑👨🏻‍❤️‍💋‍👨🏻" }
+				if (fakeCleanedText == "frkyjenn") {
 					document.body.background = "https://www.deathball.net/forum/download/file.php?avatar=17893_1296769867.jpg"
 					document.getElementById("cleaned").textContent = "";
 				}
-				if(fakeCleanedText == "oliverkunze"){
+				if (fakeCleanedText == "oliverkunze") {
 					document.body.background = "https://profile-images.xing.com/images/5247dfb9aca883b74d4195313fd731ce-3/oliver-kunze.1024x1024.jpg"
 					document.getElementById("cleaned").textContent = "";
 				}
 				document.getElementById("md5Hash").textContent = md5
+				for(let n=3; n<10; n++){
+					const part = md5.slice(0, n)
+					document.getElementById("copies").innerHTML += 
+					`<button onclick="navigator.clipboard.writeText('${part}');">⧉ ${part}</button><br><br>`
+				}
 			}
 		}
 	</script>
@@ -68,10 +80,12 @@
 		<input id="inputField" rows="5" cols="50" oninput="calculateMD5()"></input><br>
 		<br>
 		<div id="fake"></div><br>
-		<div id="md5Hash"></div><br><br><br><br><br><br><br>
+		<div id="md5Hash"></div><br>
+		<div id="copies"></div><br>
 		<div id="cleaned" style="color:black"></div>
-		<div id="cleaned" style="position: absolute; bottom: 3%; left: 50%; transform: translateX(-50%); text-align: center; color:gray; font-size: small;">
-			updated 18.04.2024 16:20
+		<div
+			style="position: absolute; bottom: 3%; left: 50%; transform: translateX(-50%); text-align: center; color:gray; font-size: small;">
+			updated 04.05.2024 21:35
 		</div>
 	</div>
 	<!-- Include CryptoJS library for MD5 calculation -->
